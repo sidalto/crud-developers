@@ -1,0 +1,27 @@
+{
+  "name": "crud-developers",
+  "version": "1.0.0",
+  "description": "CRUD Desenvolvedores Utilizando NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidalto/crud-developers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sidalto/crud-developers/issues"
+  },
+  "homepage": "https://github.com/sidalto/crud-developers#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "typescript": "^4.4.3"
+  }
+}
