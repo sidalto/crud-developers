@@ -1,13 +1,10 @@
 import express from 'express';
+import { developersRouter } from './routes/developers.route';
 
 const app = express();
 
 app.use(express.json());
 
-app.post('/teste', (request, response) => {
-  const { nome } = request.body;
+app.use('/developers', developersRouter);
 
-  return response.json({ nome });
-});
-
-app.listen(3333, () => console.log('Server iss running!'));
+app.listen(3333, () => console.log('Server is running!'));
