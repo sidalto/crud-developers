@@ -4,7 +4,7 @@
   "description": "CRUD Desenvolvedores Utilizando NodeJS",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn --quiet --clear src/server.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn --quiet --clear src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

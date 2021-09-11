@@ -1,2 +1,3 @@
 .gitignoe
+.vscode
 node_modules
