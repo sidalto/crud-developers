@@ -7,33 +7,35 @@ import {
 class DeveloperService {
   constructor(private developerRepository: IDeveloperRepository) {}
 
-  executeCreate({
+  async executeCreate({
     nome,
     idade,
     sexo,
     hobby,
     data_nascimento,
-  }: ICreateDeveloperDTO): Developer {
-    return this.developerRepository.create({
+  }: ICreateDeveloperDTO): Promise<Developer> {
+    let developer = await this.developerRepository.create({
       nome,
       idade,
       sexo,
       hobby,
       data_nascimento,
     });
+
+    return developer;
   }
 
-  executeListAll(): Developer[] {
-    return this.developerRepository.listAll();
-  }
+  // executeListAll(): Developer[] {
+  //   return this.developerRepository.listAll();
+  // }
 
-  executeUpdate(): Developer {
-    return new Developer();
-  }
-  executeDelete(): void {}
-  executeFindByName(): Developer {
-    return new Developer();
-  }
+  // executeUpdate(): Developer {
+  //   return new Developer();
+  // }
+  // executeDelete(): void {}
+  // executeFindByName(): Developer {
+  //   return new Developer();
+  // }
 }
 
 export { DeveloperService };

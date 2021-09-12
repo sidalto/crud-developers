@@ -16,15 +16,17 @@ interface IDeveloperRepository {
     idade,
     hobby,
     data_nascimento,
-  }: ICreateDeveloperDTO): Developer;
+  }: ICreateDeveloperDTO): Promise<Developer>;
 
-  findByName(name: string): Developer;
+  findById(id: string): Promise<Developer>;
 
-  listAll(): Developer[];
+  findByProperty(property: string, value: string): Promise<Developer[]>;
 
-  update(id: string): Developer;
+  showAll(): Promise<Developer[]>;
 
-  delete(id: string): Developer;
+  update(developer: Developer, id: string): Promise<Developer>;
+
+  delete(id: string): Promise<void>;
 }
 
 export { IDeveloperRepository, ICreateDeveloperDTO };

@@ -1,10 +1,11 @@
 import express from 'express';
-import { developersRouter } from './routes/developers.route';
+import './database';
+import { router } from './routes';
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/developers', developersRouter);
+app.use(router);
 
 app.listen(3333, () => console.log('Server is running!'));

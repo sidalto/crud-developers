@@ -1,0 +1,15 @@
+{
+  "type": "mysql",
+  "port": "3306",
+  "host": "localhost",
+  "username": "root",
+  "password": "",
+  "database": "crud-developers",
+  "migrations": ["./src/database/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  },
+  "extra": {
+    "charset": "utf8_unicode_ci"
+  }
+}

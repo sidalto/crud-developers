@@ -1,28 +1,52 @@
 import { Request, Response } from 'express';
-import { Developer } from '../models/Developer';
 import { DeveloperRepository } from '../repositories/DeveloperRepository';
-import { DeveloperService } from '../services/DeveloperService';
 
 class DeveloperController {
-  index(request: Request, response: Response): void {
-    const developerService = new DeveloperService(new DeveloperRepository());
-    const developers = developerService.executeListAll();
+  private developerRepository: DeveloperRepository;
 
-    response.status(200).json({ developers });
+  async index(request: Request, response: Response): Promise<Response> {
+    const developers = await this.developerRepository.showAll();
+
+    return response.status(200).json({ developers });
   }
 
-  create(request: Request, response: Request): Developer {
-    const developerService = new DeveloperService(new DeveloperRepository());
+  async create(request: Request, response: Response): Promise<Response> {
     const { nome, idade, sexo, hobby, data_nascimento } = request.body;
-
-    return developerService.executeCreate({
+    let developer = await this.developerRepository.create({
       nome,
       idade,
       sexo,
       hobby,
       data_nascimento,
     });
+
+    return response.status(200).json({ developer });
+  }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { nome, sexo, idade, hobby, data_nascimento } = request.body;
+    const developer = await this.developerRepository.update(
+      { nome, sexo, idade, hobby, data_nascimento },
+      id
+    );
+
+    return response.status(200).json({ developer });
+  }
+
+  async showById(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const developer = await this.developerRepository.findById(id);
+
+    return response.status(200).json({ developer });
+  }
+
+  async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    await this.developerRepository.delete(id);
+
+    return response.status(200).json({ message: 'Excluido' });
   }
 }
 
-export default new DeveloperController();
+export { DeveloperController };

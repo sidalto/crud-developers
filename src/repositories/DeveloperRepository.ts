@@ -1,3 +1,4 @@
+import { getRepository, Repository } from 'typeorm';
 import { Developer } from '../models/Developer';
 import {
   ICreateDeveloperDTO,
@@ -5,46 +6,71 @@ import {
 } from './IDeveloperRepository';
 
 class DeveloperRepository implements IDeveloperRepository {
-  private developers: Developer[];
+  private repository: Repository<Developer>;
+
+  // private static INSTANCE: DeveloperRepository;
 
   constructor() {
-    this.developers = [];
+    this.repository = getRepository(Developer);
   }
 
-  create({
+  // public static getInstance() {
+  //   if (!DeveloperRepository.INSTANCE) {
+  //     DeveloperRepository.INSTANCE = new DeveloperRepository();
+  //   }
+
+  //   return DeveloperRepository.INSTANCE;
+  // }
+
+  async create({
     nome,
     sexo,
     idade,
     hobby,
     data_nascimento,
-  }: ICreateDeveloperDTO): Developer {
-    const developer = new Developer();
-
-    Object.assign(developer, {
+  }: ICreateDeveloperDTO): Promise<Developer> {
+    let developer = this.repository.create({
       nome,
       sexo,
       idade,
       hobby,
-      data_nascimento: new Date(),
+      data_nascimento,
     });
+
+    developer = await this.repository.save(developer);
 
     return developer;
   }
 
-  findByName(name: string): Developer {
-    return new Developer();
+  async findById(id: string): Promise<Developer> {
+    const developer = await this.repository.findOne({ id });
+
+    return developer;
   }
 
-  listAll(): Developer[] {
-    return [];
+  async findByProperty(property: string, value: string): Promise<Developer[]> {
+    const developers = await this.repository.find({ property });
+
+    return developers;
   }
 
-  update(id: string): Developer {
-    return new Developer();
+  async showAll(): Promise<Developer[]> {
+    const developers = await this.repository.find();
+
+    return developers;
   }
 
-  delete(id: string): Developer {
-    return new Developer();
+  async update(developer: Developer, id: string): Promise<Developer> {
+    let developerDB = await this.repository.findOne({ id });
+    developerDB = developer;
+
+    developer = await this.repository.save(developerDB);
+
+    return developer;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete({ id });
   }
 }
 
