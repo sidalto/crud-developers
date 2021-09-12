@@ -1,13 +1,9 @@
 import { Router } from 'express';
+import DeveloperController from '../controllers/DeveloperController';
 
 const developersRouter = Router();
 
-developersRouter.get('/', (request, response) => {
-  response.json({ message: 'rota de index' });
-});
-
-developersRouter.post('/', (request, response) => {
-  response.json({ message: 'rota de index' });
-});
+developersRouter.get('/', DeveloperController.index);
+developersRouter.post('/', DeveloperController.create);
 
 export { developersRouter };
